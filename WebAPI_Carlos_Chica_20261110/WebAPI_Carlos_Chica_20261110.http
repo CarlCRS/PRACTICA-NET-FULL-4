@@ -1,0 +1,68 @@
+@WebAPI_Carlos_Chica_20261110_HostAddress = http://localhost:5279
+
+GET {{WebAPI_Carlos_Chica_20261110_HostAddress}}/api/cliente
+Accept: application/json
+
+###
+GET {{WebAPI_Carlos_Chica_20261110_HostAddress}}/api/cliente/resumen-cartera
+Accept: application/json
+
+###
+GET {{WebAPI_Carlos_Chica_20261110_HostAddress}}/api/factura?idCliente=1&estadoPago=PENDIENTE
+Accept: application/json
+
+###
+POST {{WebAPI_Carlos_Chica_20261110_HostAddress}}/api/factura
+Content-Type: application/json
+X-Rol: Administrador
+
+{
+  "idCliente": 1,
+  "numeroFactura": "FAC-001-003",
+  "fechaEmision": "2026-11-10",
+  "fechaVencimiento": "2026-12-10",
+  "monto": 1200.00
+}
+
+###
+PUT {{WebAPI_Carlos_Chica_20261110_HostAddress}}/api/factura/2
+Content-Type: application/json
+X-Rol: Administrador
+
+{
+  "idCliente": 1,
+  "numeroFactura": "FAC-001-002",
+  "fechaEmision": "2026-10-21",
+  "fechaVencimiento": "2026-11-25",
+  "monto": 900.00
+}
+
+###
+POST {{WebAPI_Carlos_Chica_20261110_HostAddress}}/api/pago
+Content-Type: application/json
+X-Rol: Administrador
+
+{
+  "idFactura": 1,
+  "fechaPago": "2026-11-10",
+  "montoAbonado": 250.00,
+  "metodoPago": "Transferencia",
+  "referencia": "TRF-98765"
+}
+
+###
+GET {{WebAPI_Carlos_Chica_20261110_HostAddress}}/api/pago?idFactura=1
+Accept: application/json
+
+###
+POST {{WebAPI_Carlos_Chica_20261110_HostAddress}}/api/factura
+Content-Type: application/json
+X-Rol: Ejecutivo
+
+{
+  "idCliente": 1,
+  "numeroFactura": "FAC-001-004",
+  "fechaEmision": "2026-11-10",
+  "fechaVencimiento": "2026-12-10",
+  "monto": 100.00
+}
