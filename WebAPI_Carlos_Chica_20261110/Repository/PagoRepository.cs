@@ -14,7 +14,7 @@ namespace WebAPI_Carlos_Chica_20261110.Repository
         public async Task<IEnumerable<Pago>> ObtenerAsync(int? idFactura, int? idCliente)
         {
             var sql = new StringBuilder(@"
-                SELECT  p.Id,
+                SELECT  p.id_pago AS Id,
                         p.id_factura,
                         p.fecha_pago,
                         p.monto_abonado,
@@ -29,16 +29,16 @@ namespace WebAPI_Carlos_Chica_20261110.Repository
             if (idCliente.HasValue)
                 sql.Append(" AND f.IdCliente = @idCliente");
 
-            sql.Append(" ORDER BY p.fecha_pago DESC, p.Id DESC;");
+            sql.Append(" ORDER BY p.fecha_pago DESC, p.id_pago DESC;");
 
             return await _conn.QueryAsync<Pago>(sql.ToString(), new { idFactura, idCliente });
         }
 
         public async Task<Pago?> ObtenerPorIdAsync(int id)
         {
-            const string sql = @"SELECT Id, id_factura, fecha_pago, monto_abonado, metodo_pago, referencia
+            const string sql = @"SELECT id_pago AS Id, id_factura, fecha_pago, monto_abonado, metodo_pago, referencia
                                  FROM dbo.Pago
-                                 WHERE Id = @id;";
+                                 WHERE id_pago = @id;";
             return await _conn.QueryFirstOrDefaultAsync<Pago>(sql, new { id });
         }
 

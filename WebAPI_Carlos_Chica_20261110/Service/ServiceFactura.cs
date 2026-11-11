@@ -17,7 +17,7 @@ namespace WebAPI_Carlos_Chica_20261110.Service
 
         public async Task<IEnumerable<FacturaDetalle>> ObtenerAsync(int? idCliente)
         {
-            return await _repo.ObtenerAsync(idCliente);
+            return await _repo.ObtenerAsync();
         }
 
         public async Task<FacturaDetalle?> ObtenerPorIdAsync(int id)

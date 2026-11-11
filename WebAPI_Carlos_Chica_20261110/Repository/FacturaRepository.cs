@@ -25,18 +25,11 @@ namespace WebAPI_Carlos_Chica_20261110.Repository
             FROM dbo.Factura f
             INNER JOIN dbo.Cliente c ON c.Id = f.IdCliente";
 
-        public async Task<IEnumerable<FacturaDetalle>> ObtenerAsync(int? idCliente)
+        public async Task<IEnumerable<FacturaDetalle>> ObtenerAsync()
         {
-            var sql = new StringBuilder(SelectFactura);
-            sql.Append(" WHERE 1 = 1");
+            var sql = $"{SelectFactura} ORDER BY f.FechaVencimiento;";
 
-            if (idCliente.HasValue)
-                sql.Append(" AND f.IdCliente = @idCliente");
-
-            sql.Append(" ORDER BY f.FechaVencimiento;");
-
-            return await _conn.QueryAsync<FacturaDetalle>(
-                sql.ToString(), new { idCliente});
+            return await _conn.QueryAsync<FacturaDetalle>(sql);
         }
 
         public async Task<FacturaDetalle?> ObtenerPorIdAsync(int id)
