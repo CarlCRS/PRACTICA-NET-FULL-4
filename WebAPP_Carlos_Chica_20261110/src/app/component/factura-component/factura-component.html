@@ -1,0 +1,47 @@
+<div class="pagina">
+
+  <header class="cabecera">
+    <h1>Cuentas por Cobrar</h1>
+    <p>Listado de facturas</p>
+  </header>
+
+  <section class="tarjeta">
+
+    <p class="aviso" *ngIf="cargando">Cargando facturas...</p>
+    <p class="aviso error" *ngIf="error">{{ error }}</p>
+
+    <table class="tabla" *ngIf="!cargando && !error">
+      <thead>
+        <tr>
+          <th>Cliente</th>
+          <th>N° Factura</th>
+          <th>Emisión</th>
+          <th>Vencimiento</th>
+          <th class="derecha">Monto</th>
+          <th class="derecha">Saldo</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let factura of facturas">
+          <td>{{ factura.nombreCliente }}</td>
+          <td>{{ factura.numeroFactura }}</td>
+          <td>{{ factura.fechaEmision | date:'dd/MM/yyyy' }}</td>
+          <td>{{ factura.fechaVencimiento | date:'dd/MM/yyyy' }}</td>
+          <td class="derecha">{{ factura.monto | currency:'USD' }}</td>
+          <td class="derecha">{{ factura.saldoPendiente | currency:'USD' }}</td>
+          <td>
+            <span class="etiqueta" [ngClass]="factura.estadoPago.toLowerCase()">
+              {{ factura.estadoPago }}
+            </span>
+          </td>
+        </tr>
+        <tr *ngIf="facturas.length === 0">
+          <td colspan="7" class="vacio">No hay facturas registradas.</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </section>
+
+</div>
